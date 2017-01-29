@@ -1,0 +1,79 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" template="./../../../layout/template.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="movimentacaoItemEstoqueForm">
+
+			<rich:panel>
+				<f:facet name="header">Cadastro de Movimentação de Item de Estoque</f:facet>
+
+				<s:decorate id="itemEstoqueField" template="./../../../layout/edit.xhtml">
+					<ui:define name="label">Item de Estoque:</ui:define>	
+            		<h:inputText id="itemEstoque" required="true" requiredMessage="Item Estoque é obrigatório" size="100"
+						value="#{movimentacaoItemEstoqueBean.instance.itemEstoque}"/>
+            		<rich:suggestionbox for="itemEstoque" minChars="2" suggestionAction="#{movimentacaoItemEstoqueBean.autoCompleteItensEstoque}"  reRender="unidadeMedida" 
+            			var="item"  nothingLabel="Nenhum registro encontrado." fetchValue="#{item}"  >
+            			<h:column>
+                			<h:outputText value="#{item.codigo}"/>
+                		</h:column>
+        				<h:column>
+                			<h:outputText value="#{item.descricao}"/>
+                		</h:column>
+                		<f:converter converterId="itemEstoqueConverter" />                		
+					</rich:suggestionbox>
+				</s:decorate>
+
+				<s:decorate id="tipoMovimentacaoField" template="./../../../layout/edit.xhtml">
+					<ui:define name="label">Tipo de Movimentação:</ui:define>
+					<h:selectOneMenu id="tipoMovimentacao" requiredMessage="Tipo de Movimentação é obrigatório"
+						value="#{movimentacaoItemEstoqueBean.instance.tipoMovimentacao}"
+						required="true">
+						<f:selectItem itemLabel="Selecione um..." itemValue="" />
+						<f:selectItems
+							value="#{movimentacaoItemEstoqueBean.tiposMovimentacao}" />
+					</h:selectOneMenu>
+				</s:decorate>
+
+				<s:decorate id="quantidadeMovimentacaoField"
+					template="./../../../layout/edit.xhtml">
+					<ui:define name="label">Quantidade:</ui:define>
+					<h:inputText id="quantidadeMovimentacao" required="true" requiredMessage="Quantidade é obrigatório" 
+						value="#{movimentacaoItemEstoqueBean.instance.quantidadeMovimentacao}" >						
+					</h:inputText>
+					<h:outputText id="unidadeMedida" value="#{movimentacaoItemEstoqueBean.instance.itemEstoque.unidadeMedida.descricao}"  />
+				</s:decorate>
+
+				
+				
+				<div style="clear:both"/>
+
+			</rich:panel>
+			
+			<div class="actionButtons">
+				<h:commandButton id="save" value="Salvar"
+					action="#{movimentacaoItemEstoqueBean.persist}"
+					rendered="#{!movimentacaoItemEstoqueBean.managed}" />
+				<h:commandButton id="update" value="Salvar"
+					action="#{movimentacaoItemEstoqueBean.update}"
+					rendered="#{movimentacaoItemEstoqueBean.managed}" />
+				<s:button id="remove" value="Excluir" action="#{movimentacaoItemEstoqueBean.remove}"
+					view="/pages/movimentacaoitemestoque/lists/movimentacaoItemEstoque.xhtml"  propagation="end"
+					rendered="#{movimentacaoItemEstoqueBean.managed}" />	
+				<s:button propagation="end" id="cancel" value="Cancelar"
+					view="/pages/movimentacaoitemestoque/lists/movimentacaoItemEstoque.xhtml" />
+			</div>
+
+			
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

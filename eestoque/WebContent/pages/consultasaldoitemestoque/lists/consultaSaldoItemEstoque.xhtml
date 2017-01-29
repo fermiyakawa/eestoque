@@ -1,0 +1,51 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" template="./../../../layout/template.xhtml">
+
+	<ui:define name="body">
+
+		<rich:panel>
+			<f:facet name="header">Pesquisa de Saldo Atual de Item de Estoque</f:facet>
+
+			<div class="results" id="consultaSaldoItemEstoqueList">
+
+				<h:outputText value="Nenhum registro encontrado."
+					rendered="#{empty consultaSaldoItemEstoqueList.resultList}" />
+
+				<rich:dataTable id="consultaSaldoItemEstoqueList" var="item"
+					value="#{consultaSaldoItemEstoqueList.resultList}"
+					rendered="#{not empty consultaSaldoItemEstoqueList.resultList}">
+					<h:column>
+						<f:facet name="header">Código</f:facet>
+                    	#{item.codigo}
+                	</h:column>
+					<h:column>
+						<f:facet name="header">Descrição</f:facet>
+                    	#{item.descricao}
+                	</h:column>                	
+                	<h:column>
+						<f:facet name="header">Tipo de Categoria</f:facet>
+                    	#{item.tipoCategoria.descricao}
+                	</h:column>
+                	<h:column>
+						<f:facet name="header">Saldo Atual</f:facet>
+						#{item.saldoAtual}						
+					</h:column>
+					<h:column>
+						<f:facet name="header">Unidade de Medida</f:facet>
+						#{item.unidadeMedida.descricao}						
+					</h:column>
+				</rich:dataTable>
+
+			</div>
+
+		</rich:panel>		
+
+	</ui:define>
+
+</ui:composition>

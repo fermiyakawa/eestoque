@@ -1,0 +1,16 @@
+action.package=br.com.intercom.eestoque.session
+action.sources=/eestoque-ejb/ejbModule
+eclipse.preferences.version=1
+model.package=br.com.intercom.eestoque.session
+model.sources=/eestoque-ejb/ejbModule
+seam.ear.project=eestoque-ear
+seam.ejb.project=eestoque-ejb
+seam.project.connection.profile=HSQLDB
+seam.project.deployment.type=ear
+seam.project.settings.version=1.1
+seam.project.web.root.folder=/eestoque/WebContent
+seam.runtime.name=jboss-seam-2.2.2.Final
+seam.test.creating=false
+seam.test.project=eestoque-test
+test.package=org.domain.eestoque.test
+test.sources=/eestoque-test/test-src

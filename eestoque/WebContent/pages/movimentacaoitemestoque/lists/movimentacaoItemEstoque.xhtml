@@ -1,0 +1,65 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich" template="./../../../layout/template.xhtml">
+
+	<ui:define name="body">
+
+		<rich:panel>
+			<f:facet name="header">Pesquisa de Movimentação de Item de Estoque</f:facet>
+
+			<div class="results" id="movimentacaoItemEstoqueList">
+
+				<h:outputText value="Nenhum registro encontrado."
+					rendered="#{empty movimentacaoItemEstoqueList.resultList}" />
+
+				<rich:dataTable id="movimentacaoItemEstoqueList" var="movimentacao"
+					value="#{movimentacaoItemEstoqueList.resultList}"
+					rendered="#{not empty movimentacaoItemEstoqueList.resultList}">
+					<h:column>
+						<f:facet name="header">Data</f:facet>
+						<h:outputText value="#{movimentacao.dataMovimentacao}" >
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>                    	
+                	</h:column>
+                	<h:column>
+						<f:facet name="header">Item de Estoque</f:facet>
+						<s:link id="quantidade"
+							value="#{movimentacao.itemEstoque.codigo} - #{movimentacao.itemEstoque.descricao}" propagation="none"
+							view="/pages/movimentacaoitemestoque/forms/movimentacaoItemEstoque.xhtml">
+							<f:param name="movimentacaoItemEstoqueId"
+								value="#{movimentacao.id}" />
+						</s:link>
+                	</h:column>
+                	<h:column>
+						<f:facet name="header">Tipo</f:facet>
+                    	#{movimentacao.tipoMovimentacao.descricao}
+                	</h:column>
+                	<h:column>
+						<f:facet name="header">Quantidade</f:facet>
+						#{movimentacao.quantidadeMovimentacao}
+						
+					</h:column>
+					<h:column>
+						<f:facet name="header">Unidade de Medida</f:facet>
+                    	#{movimentacao.itemEstoque.unidadeMedida.descricao}
+                	</h:column>
+                	
+				</rich:dataTable>
+
+			</div>
+
+		</rich:panel>
+
+		<s:div styleClass="actionButtons">
+			<s:button id="done" value="Nova Movimentação"
+				view="/pages/movimentacaoitemestoque/forms/movimentacaoItemEstoque.xhtml" />
+		</s:div>
+
+	</ui:define>
+
+</ui:composition>
