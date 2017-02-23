@@ -2,8 +2,9 @@ package br.com.intercom.eestoque.business.impl;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
+import javax.ejb.Stateless;
 
+import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.Name;
 
 import br.com.intercom.eestoque.business.interfaces.ItemEstoqueServiceLocal;
@@ -11,13 +12,10 @@ import br.com.intercom.eestoque.model.ItemEstoque;
 import br.com.intercom.eestoque.model.MovimentacaoItemEstoque;
 import br.com.intercom.eestoque.model.TipoMovimentacao;
 
-
+@AutoCreate
+@Stateless
 @Name("itemEstoqueService") 
 public class ItemEstoqueService extends BaseService implements ItemEstoqueServiceLocal{
-	
-	public ItemEstoqueService(EntityManager em){
-		this.em = em;
-	}
 	
 	@SuppressWarnings("unchecked")
 	public Double getSaldoAtual(ItemEstoque itemEstoque){

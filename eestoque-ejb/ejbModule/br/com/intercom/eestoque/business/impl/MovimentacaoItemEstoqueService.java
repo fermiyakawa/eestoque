@@ -3,17 +3,21 @@ package br.com.intercom.eestoque.business.impl;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
+import javax.ejb.Stateless;
 
+import org.jboss.seam.annotations.AutoCreate;
+import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 
+import br.com.intercom.eestoque.business.interfaces.ItemEstoqueServiceLocal;
 import br.com.intercom.eestoque.business.interfaces.MovimentacaoItemEstoqueServiceLocal;
 import br.com.intercom.eestoque.model.ItemEstoque;
 import br.com.intercom.eestoque.model.MovimentacaoItemEstoque;
 import br.com.intercom.eestoque.model.TipoMovimentacao;
 import br.com.intercom.eestoque.model.UnidadeMedida;
 
-
+@AutoCreate
+@Stateless
 @Name("movimentacaoItemEstoqueService")
 public class MovimentacaoItemEstoqueService extends BaseService implements MovimentacaoItemEstoqueServiceLocal{
 		
@@ -21,12 +25,8 @@ public class MovimentacaoItemEstoqueService extends BaseService implements Movim
 	public static final String MSG_SUCESSO_ALTERACAO = "Movimentação de Item de estoque alterada com sucesso.";
 	public static final String MSG_SUCESSO_EXCLUSAO = "Movimentação de Item de estoque excluída com sucesso.";
 	
-	private ItemEstoqueService itemEstoqueService;
-	
-	public MovimentacaoItemEstoqueService(EntityManager em){
-		this.em = em;
-		this.itemEstoqueService = new ItemEstoqueService(em);
-	}
+	@In
+	private ItemEstoqueServiceLocal itemEstoqueService;
 	
 	public void persist(MovimentacaoItemEstoque movimentoItemEstoque) throws Exception{
 		movimentoItemEstoque.setDataMovimentacao(new Date());

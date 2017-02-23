@@ -2,11 +2,13 @@ package br.com.intercom.eestoque.business.interfaces;
 
 import java.util.List;
 
+import javax.ejb.Local;
+
 import br.com.intercom.eestoque.model.ItemEstoque;
 import br.com.intercom.eestoque.model.MovimentacaoItemEstoque;
 import br.com.intercom.eestoque.model.UnidadeMedida;
 
-
+@Local
 public interface MovimentacaoItemEstoqueServiceLocal {
 	
 	public void persist(MovimentacaoItemEstoque movimentoItemEstoque) throws Exception;

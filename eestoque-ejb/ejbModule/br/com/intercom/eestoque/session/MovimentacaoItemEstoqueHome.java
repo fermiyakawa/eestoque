@@ -9,6 +9,7 @@ import javax.faces.model.SelectItem;
 
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.End;
+import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.core.Expressions.ValueExpression;
@@ -16,6 +17,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.framework.EntityHome;
 
 import br.com.intercom.eestoque.business.impl.MovimentacaoItemEstoqueService;
+import br.com.intercom.eestoque.business.interfaces.MovimentacaoItemEstoqueServiceLocal;
 import br.com.intercom.eestoque.model.ItemEstoque;
 import br.com.intercom.eestoque.model.MovimentacaoItemEstoque;
 import br.com.intercom.eestoque.model.TipoMovimentacao;
@@ -26,20 +28,16 @@ public class MovimentacaoItemEstoqueHome extends EntityHome<MovimentacaoItemEsto
 			
 	private static final long serialVersionUID = 1L;
 		
-	MovimentacaoItemEstoqueService movimentacaoItemEstoqueService;
+	@In
+	private MovimentacaoItemEstoqueServiceLocal movimentacaoItemEstoqueService;
 	
 	@RequestParameter 
-	Long movimentacaoItemEstoqueId;
+	private Long movimentacaoItemEstoqueId;
 	
 	@Override @Begin
     public void create() {    	 	    	
         super.create();
-        init();
     }
-	
-	public void init(){
-		this.movimentacaoItemEstoqueService = new MovimentacaoItemEstoqueService(getEntityManager());
-	}
 
     @Override
     public Object getId(){
